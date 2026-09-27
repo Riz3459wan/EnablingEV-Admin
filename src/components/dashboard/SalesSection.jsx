@@ -93,7 +93,7 @@ const buildTrendData = (orders, days) => {
 
 const SalesSection = () => {
   const navigate = useNavigate();
-  const [trendFilter, setTrendFilter] = useState("30d");
+  const [trendFilter, setTrendFilter] = useState("all");
   const [orderModalFor, setOrderModalFor] = useState(null);
   const [listModalFor, setListModalFor] = useState(null);
 
@@ -271,59 +271,74 @@ const SalesSection = () => {
               </div>
 
               <div className="px-2 pt-3 pb-2">
-                <ResponsiveContainer width="100%" height={160}>
-                  <AreaChart data={trendData}>
-                    <defs>
-                      <linearGradient
-                        id="salesGradModern"
-                        x1="0"
-                        y1="0"
-                        x2="0"
-                        y2="1"
-                      >
-                        <stop
-                          offset="0%"
-                          stopColor="#10b981"
-                          stopOpacity={0.4}
-                        />
-                        <stop
-                          offset="100%"
-                          stopColor="#10b981"
-                          stopOpacity={0}
-                        />
-                      </linearGradient>
-                    </defs>
-                    <XAxis
-                      dataKey="day"
-                      tick={{ fontSize: 10, fill: "#94a3b8" }}
-                      axisLine={false}
-                      tickLine={false}
-                    />
-                    <YAxis hide />
-                    <Tooltip
-                      formatter={(v) => [formatINR(v), "Delivered Sales"]}
-                      contentStyle={{
-                        borderRadius: 10,
-                        border: "1px solid #e2e8f0",
-                        fontSize: 11,
-                      }}
-                    />
-                    <Area
-                      type="monotone"
-                      dataKey="value"
-                      stroke="#10b981"
-                      strokeWidth={2.5}
-                      fill="url(#salesGradModern)"
-                      dot={{
-                        r: 4,
-                        fill: "#10b981",
-                        strokeWidth: 2,
-                        stroke: "#fff",
-                      }}
-                      activeDot={{ r: 6 }}
-                    />
-                  </AreaChart>
-                </ResponsiveContainer>
+                {trendData.length === 0 ||
+                trendData.every((d) => d.value === 0) ? (
+                  <div className="h-[160px] flex flex-col items-center justify-center">
+                    <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center mb-3">
+                      <TrendingUp size={20} className="text-slate-400" />
+                    </div>
+                    <p className="text-xs text-slate-500 font-medium">
+                      No sales in this period
+                    </p>
+                    <p className="text-[10px] text-slate-400 mt-1">
+                      Try expanding the date range
+                    </p>
+                  </div>
+                ) : (
+                  <ResponsiveContainer width="100%" height={160}>
+                    <AreaChart data={trendData}>
+                      <defs>
+                        <linearGradient
+                          id="salesGradModern"
+                          x1="0"
+                          y1="0"
+                          x2="0"
+                          y2="1"
+                        >
+                          <stop
+                            offset="0%"
+                            stopColor="#10b981"
+                            stopOpacity={0.4}
+                          />
+                          <stop
+                            offset="100%"
+                            stopColor="#10b981"
+                            stopOpacity={0}
+                          />
+                        </linearGradient>
+                      </defs>
+                      <XAxis
+                        dataKey="day"
+                        tick={{ fontSize: 10, fill: "#94a3b8" }}
+                        axisLine={false}
+                        tickLine={false}
+                      />
+                      <YAxis hide />
+                      <Tooltip
+                        formatter={(v) => [formatINR(v), "Delivered Sales"]}
+                        contentStyle={{
+                          borderRadius: 10,
+                          border: "1px solid #e2e8f0",
+                          fontSize: 11,
+                        }}
+                      />
+                      <Area
+                        type="monotone"
+                        dataKey="value"
+                        stroke="#10b981"
+                        strokeWidth={2.5}
+                        fill="url(#salesGradModern)"
+                        dot={{
+                          r: 4,
+                          fill: "#10b981",
+                          strokeWidth: 2,
+                          stroke: "#fff",
+                        }}
+                        activeDot={{ r: 6 }}
+                      />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                )}
               </div>
             </div>
 

@@ -17,7 +17,7 @@ import {
   MOCK_QUOTATIONS,
 } from "./data";
 
-const SEED_VERSION = "v3";
+const SEED_VERSION = "v4";
 const SEED_KEY = "enablingev_mock_seed_version";
 
 const getCurrentVersion = () => {
