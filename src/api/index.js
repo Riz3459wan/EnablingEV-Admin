@@ -1,0 +1,18 @@
+export * as authApi from "./auth.api";
+export * as dashboardApi from "./dashboard.api";
+export * as usersApi from "./users.api";
+export * as subadminsApi from "./subadmins.api";
+export * as dealersApi from "./dealers.api";
+export * as customersApi from "./customers.api";
+export * as vehiclesApi from "./vehicles.api";
+export * as inventoryApi from "./inventory.api";
+export * as ordersApi from "./orders.api";
+export * as quotationsApi from "./quotations.api";
+export * as dispatchApi from "./dispatch.api";
+export * as deliveryApi from "./delivery.api";
+export * as workersApi from "./workers.api";
+export * as billingApi from "./billing.api";
+export * as notificationsApi from "./notifications.api";
+export * as reportsApi from "./reports.api";
+export * as formsApi from "./forms.api";
+export { default as api } from "./client";
